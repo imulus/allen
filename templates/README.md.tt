@@ -1,0 +1,17 @@
+# <%= @name %>
+
+---
+
+## Installation
+
+### Clone
+
+    git clone git@github.com:imulus/<%= @name %>.git
+
+### Install Dependencies
+
+    bundle install
+
+### Build
+
+    rake build
