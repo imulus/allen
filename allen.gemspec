@@ -14,4 +14,6 @@ Gem::Specification.new do |gem|
   gem.name          = "allen"
   gem.require_paths = ["lib"]
   gem.version       = Allen::VERSION
+
+  gem.add_runtime_dependency(%q<thor>, [">= 0.16.0"])
 end
