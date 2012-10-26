@@ -1,4 +1,5 @@
 require 'active_support/all'
+require 'fileutils'
 
 module Allen
   class Cli < Thor
@@ -9,18 +10,21 @@ module Allen
 
     desc "new ClientName", "Initialize an Umbraco project"
     def new(name)
-      @name = name.gsub(/\W/, '_').squeeze('_').camelize
+      @name = File.basename(File.expand_path(name)).gsub(/\W/, '_').squeeze('_').camelize
+      self.destination_root = File.join(File.dirname(File.expand_path(name)), @name)
+
+      empty_directory destination_root
+
       @umbraco_guid = guid
       @umbraco_assembly_guid = guid.downcase
       @umbraco_extensions_guid = guid
       @umbraco_extensions_assembly_guid = guid.downcase
 
-      empty_directory 'lib'
-      directory       'src'
-      template        '.gitignore'
-      template        'README.md.tt'
-      template        'Rakefile'
-      template        'Gemfile'
+      directory 'src'
+      template  '.gitignore'
+      template  'README.md.tt'
+      template  'Rakefile.tt'
+      template  'Gemfile'
     end
 
     no_tasks do
@@ -30,4 +34,3 @@ module Allen
     end
   end
 end
-
