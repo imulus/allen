@@ -1,5 +1,5 @@
 require 'active_support/all'
-require 'fileutils'
+require 'securerandom'
 
 module Allen
   class Cli < Thor
