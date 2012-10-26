@@ -1,0 +1,101 @@
+require 'bundler'
+begin
+  Bundler.require
+rescue
+  puts "Installing missing dependencies...\n\n"
+  sh "bundle install"
+  puts "\nFTFY. Please try again."
+  exit 1
+end
+
+client     = "<%= @name %>"
+projects   = ["Umbraco"]
+
+css_input  = "assets/stylesheets/app/application.less"
+css_output = "css/application.css"
+
+js_input   = "assets/javascripts/app/application.coffee"
+js_output  = "js/application.js"
+
+root_dir   = File.expand_path("#{File.dirname(__FILE__)}")
+src_dir    = "#{root_dir}/src"
+solution   = "#{src_dir}/#{client}.sln"
+targets    = [:clean, :build]
+parameters = ""
+
+# Default Tasks
+task :default => :build
+
+# Build Task
+desc "Build the solution and compile all assets"
+task :build => ['assets:build', 'assets:compress'] do
+  Rake.application.invoke_task('solution:msbuild["release"]')
+end
+
+# Solution Tasks
+namespace :solution do
+  desc "Build the solution with a chosen configuration"
+  msbuild :msbuild, :config do |msb, args|
+    msb.solution   = "#{solution}"
+    msb.properties = { :configuration => args.config.to_sym }
+    msb.parameters = parameters
+    msb.targets    = targets
+  end
+end
+
+# Assets Tasks
+namespace :assets do
+  desc "Watches assets for every project"
+  multitask :watch => projects.map { |project| "#{project.downcase}:assets:watch" }
+
+  desc "Builds assets for every project"
+  task :build => projects.map { |project| "#{project.downcase}:assets:build" }
+
+  desc "Compresses assets for every project"
+  task :compress => projects.map { |project| "#{project.downcase}:assets:compress" }
+end
+
+# Project Tasks
+projects.each do |project|
+  namespace project.downcase do
+    desc "Build the #{project} project and compile assets"
+    task :build => ['assets:build'] do
+      Rake.application.invoke_task(project.downcase + ':msbuild["release"]')
+    end
+
+    desc "Build the #{project} project"
+    msbuild :msbuild, :config do |msb, args|
+      msb.solution   = "#{src_dir}/#{client}.#{project}/#{client}.#{project}.csproj"
+      msb.properties = { :configuration => args.config.to_sym }
+      msb.parameters = parameters
+      msb.targets    = targets
+    end
+
+    namespace :assets do
+      desc "Watches assets for the #{project} project"
+      multitask :watch => ['css:watch', 'js:watch']
+
+      desc "Builds assets for the #{project} project"
+      multitask :build => ['css:build', 'js:build']
+
+      desc "Compresses assets for the #{project} project"
+      multitask :compress => ['css:compress', 'js:compress']
+    end
+
+    namespace :css do
+      desc "Builds CSS for the #{project} project"
+      coyote do |config|
+        config.input  = "#{src_dir}/#{client}.#{project}/#{css_input}"
+        config.output = "#{src_dir}/#{client}.#{project}/#{css_output}"
+      end
+    end
+
+    namespace :js do
+      desc "Builds JS for the #{project} project"
+      coyote do |config|
+        config.input  = "#{src_dir}/#{client}.#{project}/#{js_input}"
+        config.output = "#{src_dir}/#{client}.#{project}/#{js_output}"
+      end
+    end
+  end
+end
