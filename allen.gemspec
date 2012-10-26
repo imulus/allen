@@ -4,8 +4,8 @@ require File.expand_path('../lib/allen/version', __FILE__)
 Gem::Specification.new do |gem|
   gem.authors       = ["Taylor Smith"]
   gem.email         = ["taylor.smith@imulus.com"]
-  gem.description   = %q{TODO: Write a gem description}
-  gem.summary       = %q{TODO: Write a gem summary}
+  gem.description   = "Quickly build an Umbraco project"
+  gem.summary       = "Quickly build an Umbraco project"
   gem.homepage      = ""
 
   gem.files         = `git ls-files`.split($\)
