@@ -18,4 +18,10 @@ Gem::Specification.new do |gem|
   gem.add_runtime_dependency(%q<thor>, ["~> 0.16.0"])
   gem.add_runtime_dependency(%q<i18n>, ["~> 0.6.1"])
   gem.add_runtime_dependency(%q<active_support>, ["~> 3.0.0"])
+
+  gem.add_development_dependency(%q<rspec>, ["2.11.0"])
+  gem.add_development_dependency(%q<listen>, ["0.4.7"])
+  gem.add_development_dependency(%q<guard>, ["1.2.3"])
+  gem.add_development_dependency(%q<guard-rspec>, ["1.2.1"])
+  gem.add_development_dependency(%q<growl>, ["1.0.3"])
 end
