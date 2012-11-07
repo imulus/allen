@@ -1,4 +1,3 @@
-require 'bundler'
 require 'allen/dsl'
 require 'allen/task_definer'
 

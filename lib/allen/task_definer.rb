@@ -1,3 +1,6 @@
+require 'albacore'
+require 'coyote/rake'
+
 module Allen
   class TaskDefiner
     include Rake::DSL
