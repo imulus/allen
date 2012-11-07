@@ -4,9 +4,12 @@ module Allen
   class Project
     attr_accessor :name, :settings
 
-    def initialize(name, block)
+    def initialize(name="Umbraco", block=nil)
       @name = name
-      @settings = Settings.new
+      @settings = Allen.settings.clone
+      @settings.configure do
+        name name
+      end
       @settings.configure(block) if block
     end
   end
