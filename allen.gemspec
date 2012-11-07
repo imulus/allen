@@ -20,6 +20,7 @@ Gem::Specification.new do |gem|
   gem.add_runtime_dependency(%q<active_support>, ["~> 3.0.0"])
   gem.add_runtime_dependency(%q<albacore>, ["0.3.4"])
   gem.add_runtime_dependency(%q<coyote>, ["1.2.2.rc1"])
+  gem.add_runtime_dependency(%q<rake>, ["0.9.2.2"])
 
   gem.add_development_dependency(%q<rspec>, ["2.11.0"])
   gem.add_development_dependency(%q<listen>, ["0.4.7"])
