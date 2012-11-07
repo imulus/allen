@@ -2,7 +2,12 @@ def sh(*args)
 end
 
 class Fake
-  def application
+  class Task
+    def self.define_task(*args)
+    end
+  end
+
+  def self.application
   end
 end
 
