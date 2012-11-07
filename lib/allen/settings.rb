@@ -26,7 +26,7 @@ module Allen
     end
 
     def method_missing(method, value=nil, &block)
-      set(method, value, block) if value or block
+      set(method, value, block) if !value.nil? or block
       get(method)
     end
 

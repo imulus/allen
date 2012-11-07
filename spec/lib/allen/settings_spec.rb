@@ -29,5 +29,27 @@ describe Allen::Settings do
     settings.root_dir.should == "~/Desktop"
     settings.solution.should == "~/Desktop/src/FlavaFlav.sln"
   end
+
+  it "can be copied and overriden" do
+    global_settings = Allen::Settings.new
+    global_settings.configure do
+      client "PedoBear"
+      webroot { "~/Desktop/#{client}/wwwroot" }
+      cache false
+    end
+
+    local_settings = global_settings.clone
+    local_settings.configure do
+      client "GoodGuyGreg"
+      webroot { "~/Desktop/#{client}/public" }
+    end
+
+    global_settings.client.should == "PedoBear"
+    global_settings.webroot.should == "~/Desktop/PedoBear/wwwroot"
+    global_settings.cache.should == false
+    local_settings.client.should == "GoodGuyGreg"
+    local_settings.webroot.should == "~/Desktop/GoodGuyGreg/public"
+    local_settings.cache.should == false
+  end
 end
 
