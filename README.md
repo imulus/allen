@@ -1,6 +1,8 @@
 # Allen
 
-TODO: Write a gem description
+CLI and Rake tools for quickly building and managing Umbraco projects
+
+[![Build Status](https://secure.travis-ci.org/imulus/allen.png)](http://travis-ci.org/imulus/allen)
 
 ## Installation
 
@@ -18,7 +20,31 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+### CLI
+
+TODO: Write CLI usage instructions here
+
+### Rake
+
+`Rakefile`
+
+```ruby
+require 'allen/rake'
+
+settings do
+  client "ClientName"
+end
+
+project "ProjectName"
+project "OtherProjectName"
+
+define_tasks
+```
+
+
+```bash
+$ rake -T
+```
 
 ## Contributing
 
