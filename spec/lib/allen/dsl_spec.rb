@@ -20,13 +20,18 @@ describe Allen::DSL do
   end
 
   it "can configure projects" do
-    proj = project "Rhino" do
+    proj1 = project "Rhino" do
       compile true
       cache { false }
     end
 
-    proj.settings.compile.should == true
-    proj.settings.cache.should == false
+    proj2 = project "Rupert" do
+      compressor :uglify
+    end
+
+    proj1.settings.compile.should == true
+    proj1.settings.cache.should == false
+    proj2.settings.compressor.should == :uglify
   end
 end
 
