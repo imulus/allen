@@ -7,6 +7,9 @@ class Fake
     end
   end
 
+  module DSL
+  end
+
   def self.application
   end
 end
