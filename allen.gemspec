@@ -2,11 +2,11 @@
 require File.expand_path('../lib/allen/version', __FILE__)
 
 Gem::Specification.new do |gem|
-  gem.authors       = ["Taylor Smith"]
-  gem.email         = ["taylor.smith@imulus.com"]
-  gem.description   = "Quickly build an Umbraco project"
-  gem.summary       = "Quickly build an Umbraco project"
-  gem.homepage      = ""
+  gem.authors       = ["Taylor Smith", "Casey O'Hara"]
+  gem.email         = ["taylor.smith@imulus.com", "casey.ohara@imulus.com"]
+  gem.description   = "Quickly build and manage Umbraco projects"
+  gem.summary       = "CLI and Rake tools for quickly building and managing Umbraco projects"
+  gem.homepage      = "http://github.com/imulus/allen"
 
   gem.files         = `git ls-files`.split($\)
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
