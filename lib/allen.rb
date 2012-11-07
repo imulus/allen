@@ -8,7 +8,12 @@ module Allen
   end
 
   def self.projects
-    @project ||= []
+    @projects ||= []
+  end
+
+  def self.reset!
+    @settings = nil
+    @projects = nil
   end
 end
 
