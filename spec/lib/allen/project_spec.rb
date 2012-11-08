@@ -1,16 +1,6 @@
 require 'allen'
 require 'allen/project'
 
-module Allen
-  module Preprocessors
-    class Coyote
-    end
-
-    class Sass
-    end
-  end
-end
-
 describe Allen::Project do
   describe "settings" do
     it "has good defaults" do

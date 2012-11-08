@@ -1,4 +1,5 @@
 require 'allen/settings'
+require 'allen/preprocessors'
 
 module Allen
   class Project
