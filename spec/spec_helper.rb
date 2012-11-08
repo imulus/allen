@@ -1,7 +1,7 @@
 def sh(*args)
 end
 
-class Fake
+module Fake
   class Task
     def self.define_task(*args)
     end

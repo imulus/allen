@@ -2,10 +2,10 @@ require 'albacore'
 
 module Allen
   class TaskDefiner
-    include Rake::DSL
     attr_accessor :settings, :projects
 
     def initialize(settings, projects)
+      extend Rake::DSL if defined? Rake::DSL
       @settings = settings
       @projects = projects
     end
@@ -93,23 +93,18 @@ module Allen
             desc "Builds CSS for the #{project.name} project"
             input  = "#{project.settings.src_dir}/#{project.settings.client}.#{project.name}/#{project.settings.css_input}"
             output = "#{project.settings.src_dir}/#{project.settings.client}.#{project.name}/#{project.settings.css_output}"
+            preprocessor = project.css_preprocessor
 
             task :build do
-              Bundler.with_clean_env do
-                sh "#{project.settings.css_preprocessor} #{input}:#{output}"
-              end
+              Bundler.with_clean_env { preprocessor.build(input, output) }
             end
 
             task :compress do
-              Bundler.with_clean_env do
-                sh "#{project.settings.css_preprocessor} #{input}:#{output} -c"
-              end
+              Bundler.with_clean_env { preprocessor.compress(input, output) }
             end
 
             task :watch do
-              Bundler.with_clean_env do
-                sh "#{project.settings.css_preprocessor} #{input}:#{output} -w"
-              end
+              Bundler.with_clean_env { preprocessor.watch(input, output) }
             end
           end
 
@@ -117,23 +112,18 @@ module Allen
             desc "Builds JS for the #{project.name} project"
             input  = "#{project.settings.src_dir}/#{project.settings.client}.#{project.name}/#{project.settings.js_input}"
             output = "#{project.settings.src_dir}/#{project.settings.client}.#{project.name}/#{project.settings.js_output}"
+            preprocessor = project.js_preprocessor
 
             task :build do
-              Bundler.with_clean_env do
-                sh "#{project.settings.js_preprocessor} #{input}:#{output}"
-              end
+              Bundler.with_clean_env { preprocessor.build(input, output) }
             end
 
             task :compress do
-              Bundler.with_clean_env do
-                sh "#{project.settings.js_preprocessor} #{input}:#{output} -c"
-              end
+              Bundler.with_clean_env { preprocessor.compress(input, output) }
             end
 
             task :watch do
-              Bundler.with_clean_env do
-                sh "#{project.settings.js_preprocessor} #{input}:#{output} -w"
-              end
+              Bundler.with_clean_env { preprocessor.watch(input, output) }
             end
           end
         end

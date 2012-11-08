@@ -1,3 +1,4 @@
+require 'rake'
 require 'allen/dsl'
 require 'allen/task_definer'
 
