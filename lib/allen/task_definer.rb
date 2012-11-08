@@ -1,5 +1,4 @@
 require 'albacore'
-require 'coyote/rake'
 
 module Allen
   class TaskDefiner
@@ -92,17 +91,49 @@ module Allen
 
           namespace :css do
             desc "Builds CSS for the #{project.name} project"
-            coyote do |config|
-              config.input  = "#{project.settings.src_dir}/#{project.settings.client}.#{project.name}/#{project.settings.css_input}"
-              config.output = "#{project.settings.src_dir}/#{project.settings.client}.#{project.name}/#{project.settings.css_output}"
+            input  = "#{project.settings.src_dir}/#{project.settings.client}.#{project.name}/#{project.settings.css_input}"
+            output = "#{project.settings.src_dir}/#{project.settings.client}.#{project.name}/#{project.settings.css_output}"
+
+            task :build do
+              Bundler.with_clean_env do
+                sh "#{project.settings.css_preprocessor} #{input}:#{output}"
+              end
+            end
+
+            task :compress do
+              Bundler.with_clean_env do
+                sh "#{project.settings.css_preprocessor} #{input}:#{output} -c"
+              end
+            end
+
+            task :watch do
+              Bundler.with_clean_env do
+                sh "#{project.settings.css_preprocessor} #{input}:#{output} -w"
+              end
             end
           end
 
           namespace :js do
             desc "Builds JS for the #{project.name} project"
-            coyote do |config|
-              config.input  = "#{project.settings.src_dir}/#{project.settings.client}.#{project.name}/#{project.settings.js_input}"
-              config.output = "#{project.settings.src_dir}/#{project.settings.client}.#{project.name}/#{project.settings.js_output}"
+            input  = "#{project.settings.src_dir}/#{project.settings.client}.#{project.name}/#{project.settings.js_input}"
+            output = "#{project.settings.src_dir}/#{project.settings.client}.#{project.name}/#{project.settings.js_output}"
+
+            task :build do
+              Bundler.with_clean_env do
+                sh "#{project.settings.js_preprocessor} #{input}:#{output}"
+              end
+            end
+
+            task :compress do
+              Bundler.with_clean_env do
+                sh "#{project.settings.js_preprocessor} #{input}:#{output} -c"
+              end
+            end
+
+            task :watch do
+              Bundler.with_clean_env do
+                sh "#{project.settings.js_preprocessor} #{input}:#{output} -w"
+              end
             end
           end
         end

@@ -5,17 +5,19 @@ describe Allen::Settings do
 
   it "has good defaults" do
     settings = Allen::Settings.new
-    settings.client.should     == "Client"
-    settings.css_input.should  == "assets/stylesheets/app/application.less"
-    settings.css_output.should == "css/application.css"
-    settings.js_input.should   == "assets/javascripts/app/application.coffee"
-    settings.js_output.should  == "js/application.js"
-    settings.root_dir.should   == pwd
-    settings.src_dir.should    == "#{pwd}/src"
-    settings.solution.should   == "#{pwd}/src/Client.sln"
-    settings.targets.should    == [:clean, :build]
-    settings.parameters.should == ""
-    settings.webroot.should    == "#{pwd}/src/Client.Umbraco"
+    settings.client.should            == "Client"
+    settings.css_input.should         == "assets/stylesheets/app/application.less"
+    settings.css_output.should        == "css/application.css"
+    settings.css_preprocessor.should  == :coyote
+    settings.js_input.should          == "assets/javascripts/app/application.coffee"
+    settings.js_output.should         == "js/application.js"
+    settings.js_preprocessor.should   == :coyote
+    settings.root_dir.should          == pwd
+    settings.src_dir.should           == "#{pwd}/src"
+    settings.solution.should          == "#{pwd}/src/Client.sln"
+    settings.targets.should           == [:clean, :build]
+    settings.parameters.should        == ""
+    settings.webroot.should           == "#{pwd}/src/Client.Umbraco"
   end
 
   it "allows the defaults to be overridden" do
