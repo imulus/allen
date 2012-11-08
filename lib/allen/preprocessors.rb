@@ -19,16 +19,20 @@ module Allen
 
       name :echo
 
+      def self.relative(path)
+        path.gsub(Dir.pwd + '/',"")
+      end
+
       def self.build(input, output)
-        sh "#{@name} #{input}:#{output}"
+        sh "#{@name} #{relative input}:#{relative output}"
       end
 
       def self.compress(input, output)
-        sh "#{@name} #{input}:#{output} --compress"
+        sh "#{@name} #{relative input}:#{relative output} --compress"
       end
 
       def self.watch(input, output)
-        sh "#{@name} #{input}:#{output} --watch"
+        sh "#{@name} #{relative input}:#{relative output} --watch"
       end
     end
 
@@ -42,16 +46,16 @@ module Allen
 
     class Sass < Preprocessor
       def self.build(input, output)
-        sh "sass #{input}:#{output} --style expanded"
+        sh "sass #{relative input}:#{relative output} --style expanded"
       end
 
       def self.compress(input, output)
-        sh "sass #{input}:#{output} --style compressed"
+        sh "sass #{relative input}:#{relative output} --style compressed"
       end
 
       def self.watch(input, output)
-        input_path = input.gsub(/\/\w+\.\w+$/,'')
-        output_path = output.gsub(/\/\w+\.\w+$/,'')
+        input_path = relative(input).gsub(/\/\w+\.\w+$/,'')
+        output_path = relative(output).gsub(/\/\w+\.\w+$/,'')
         sh "sass --watch #{input_path}:#{output_path} --style expanded"
       end
     end
