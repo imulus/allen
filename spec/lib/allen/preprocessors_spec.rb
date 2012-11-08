@@ -21,6 +21,25 @@ describe Allen::Preprocessors do
     end
   end
 
+  describe Allen::Preprocessors::Banshee do
+    let(:banshee) { Allen::Preprocessors::Banshee }
+
+    it "has a build command" do
+      banshee.should_receive("sh").with("banshee input.less:output.css")
+      banshee.build("input.less", "output.css")
+    end
+
+    it "has a compress command" do
+      banshee.should_receive("sh").with("banshee input.less:output.css --compress")
+      banshee.compress("input.less", "output.css")
+    end
+
+    it "has a watch command" do
+      banshee.should_receive("sh").with("banshee input.less:output.css --watch")
+      banshee.watch("input.less", "output.css")
+    end
+  end
+
   describe Allen::Preprocessors::Sass do
     let(:sass) { Allen::Preprocessors::Sass }
 

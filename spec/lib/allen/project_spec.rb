@@ -42,12 +42,18 @@ describe Allen::Project do
       project.css_preprocessor.should == Allen::Preprocessors::Sass
     end
 
+    it "knows about banshee" do
+      project = Allen::Project.new
+      project.settings.css_preprocessor :banshee
+      project.css_preprocessor.should == Allen::Preprocessors::Banshee
+    end
+
     it "raises when it doesn't know the css preprocessor" do
       project = Allen::Project.new
       project.settings.css_preprocessor :pawikwkasdf
       expect {
         project.css_preprocessor
-      }.to raise_error StandardError, /unknown CSS preprocessor: pawikwkasdf/
+      }.to raise_error StandardError, /unknown preprocessor: pawikwkasdf/
     end
 
     it "knows its js preprocessor" do
@@ -56,12 +62,18 @@ describe Allen::Project do
       project.js_preprocessor.should == Allen::Preprocessors::Coyote
     end
 
+    it "knows about banshee" do
+      project = Allen::Project.new
+      project.settings.js_preprocessor :banshee
+      project.js_preprocessor.should == Allen::Preprocessors::Banshee
+    end
+
     it "raises when it doesn't know the js preprocessor" do
       project = Allen::Project.new
       project.settings.js_preprocessor :fsdfasdfadsf
       expect {
         project.js_preprocessor
-      }.to raise_error StandardError, /unknown JS preprocessor: fsdfasdfadsf/
+      }.to raise_error StandardError, /unknown preprocessor: fsdfasdfadsf/
     end
   end
 end

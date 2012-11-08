@@ -15,21 +15,11 @@ module Allen
     end
 
     def css_preprocessor
-      if settings.css_preprocessor == :coyote
-        Allen::Preprocessors::Coyote
-      elsif settings.css_preprocessor == :sass
-        Allen::Preprocessors::Sass
-      else
-        raise StandardError, "unknown CSS preprocessor: #{settings.css_preprocessor}"
-      end
+      Preprocessors.for(settings.css_preprocessor)
     end
 
     def js_preprocessor
-      if settings.js_preprocessor == :coyote
-        Allen::Preprocessors::Coyote
-      else
-        raise StandardError, "unknown JS preprocessor: #{settings.js_preprocessor}"
-      end
+      Preprocessors.for(settings.js_preprocessor)
     end
   end
 end
