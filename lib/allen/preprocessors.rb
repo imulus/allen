@@ -27,7 +27,9 @@ module Allen
         sh "sass #{input}:#{output} --style compressed"
       end
 
-      def self.watch(input_path, output_path)
+      def self.watch(input, output)
+        input_path = input.gsub(/\/\w+\.\w+$/,'')
+        output_path = output.gsub(/\/\w+\.\w+$/,'')
         sh "sass --watch #{input_path}:#{output_path} --style expanded"
       end
     end

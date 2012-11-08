@@ -36,7 +36,7 @@ describe Allen::Preprocessors do
 
     it "has a watch command" do
       sass.should_receive("sh").with("sass --watch assets/stylesheets:wwwroot/css --style expanded")
-      sass.watch("assets/stylesheets", "wwwroot/css")
+      sass.watch("assets/stylesheets/styles.scss", "wwwroot/css/styles.css")
     end
   end
 end
