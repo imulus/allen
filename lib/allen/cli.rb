@@ -24,7 +24,7 @@ module Allen
       template  '.gitignore'
       template  'README.md.tt'
       template  'Rakefile.tt'
-      template  'Gemfile'
+      template  'Gemfile.tt'
     end
 
     no_tasks do
