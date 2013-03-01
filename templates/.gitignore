@@ -51,6 +51,9 @@ src/[Pp]ackages/
 *_p.c
 .builds
 
+version
+commit-hash
+
 src/*.Umbraco/App_Data/ClientDependency/
 src/*.Umbraco/App_Data/ExamineIndexes/
 src/*.Umbraco/App_Data/TEMP/
