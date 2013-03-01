@@ -66,6 +66,9 @@ src/*.Umbraco/App_Data/umbraco.config
 src/*.Umbraco/aspnet_client/
 src/*.Umbraco/media/
 src/*.Umbraco/imagecache/
+src/*.Umbraco/install/
+src/*.Umbraco/umbraco/
+src/*.Umbraco/umbraco_client/
 
 *[Rr]e[Ss]harper.user
 _ReSharper.*/
