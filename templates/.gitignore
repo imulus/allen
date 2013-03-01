@@ -54,6 +54,9 @@ src/[Pp]ackages/
 version
 commit-hash
 
+*.bak
+*.backup
+
 src/*.Umbraco/App_Data/ClientDependency/
 src/*.Umbraco/App_Data/ExamineIndexes/
 src/*.Umbraco/App_Data/TEMP/
