@@ -19,8 +19,10 @@ module Allen
       @umbraco_assembly_guid = guid.downcase
       @umbraco_extensions_guid = guid
       @umbraco_extensions_assembly_guid = guid.downcase
+      @nuget_guid = guid
 
       directory 'src'
+      directory 'src/.nuget'
       template  '.gitignore'
       template  'README.md.tt'
       template  'Rakefile.tt'
