@@ -9,11 +9,6 @@ Thumbs.db
 ehthumbs.db
 Desktop.ini
 $RECYCLE.BIN/
-*.orig
-
-.svn
-.hg
-.hgignore
 
 [Dd]ebug/
 [Bb]uild/
@@ -23,6 +18,8 @@ $RECYCLE.BIN/
 src/[Pp]ackages/
 
 *.aps
+*.bak
+*.backup
 *.build.csdef
 *.cache
 *.ilk
@@ -31,6 +28,7 @@ src/[Pp]ackages/
 *.meta
 *.ncb
 *.obj
+*.orig
 *.pch
 *.pdb
 *.pgc
@@ -38,6 +36,7 @@ src/[Pp]ackages/
 *.rsp
 *.sbr
 *.scc
+*.sdf
 *.sln.docstates
 *.suo
 *.tlb
@@ -50,15 +49,17 @@ src/[Pp]ackages/
 *_i.c
 *_p.c
 .builds
+.svn
+.hg
+.hgignore
 
 version
 commit-hash
-
-*.bak
-*.backup
+dummy.txt
 
 src/*.Umbraco/App_Data/ClientDependency/
 src/*.Umbraco/App_Data/ExamineIndexes/
+src/*.Umbraco/App_Data/Logs/
 src/*.Umbraco/App_Data/TEMP/
 src/*.Umbraco/App_Data/preview/
 src/*.Umbraco/App_Data/umbraco.config
