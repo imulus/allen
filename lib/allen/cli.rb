@@ -10,6 +10,7 @@ module Allen
 
     desc "new ClientName", "Initialize an Umbraco project"
     def new(name)
+      @full_name = name
       @name = File.basename(File.expand_path(name)).gsub(/\W/, '_').squeeze('_').camelize
       self.destination_root = File.join(File.dirname(File.expand_path(name)), @name)
 
@@ -27,6 +28,8 @@ module Allen
       template  'README.md.tt'
       template  'Rakefile.tt'
       template  'Gemfile.tt'
+
+      system "git init #{destination_root}"
     end
 
     no_tasks do
