@@ -8,10 +8,10 @@ describe Allen::Settings do
     settings.client.should            == "Client"
     settings.css_input.should         == "assets/stylesheets/app/application.less"
     settings.css_output.should        == "css/application.css"
-    settings.css_preprocessor.should  == :coyote
+    settings.css_preprocessor.should  == :banshee
     settings.js_input.should          == "assets/javascripts/app/application.coffee"
     settings.js_output.should         == "js/application.js"
-    settings.js_preprocessor.should   == :coyote
+    settings.js_preprocessor.should   == :banshee
     settings.root_dir.should          == pwd
     settings.src_dir.should           == "#{pwd}/src"
     settings.solution.should          == "#{pwd}/src/Client.sln"
