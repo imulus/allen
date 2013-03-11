@@ -1,3 +1,4 @@
 source :rubygems
 
 gem 'allen', '<%= Allen::VERSION %>', :require => 'allen/rake'
+gem 'nokogiri'
