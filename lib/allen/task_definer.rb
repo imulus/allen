@@ -67,21 +67,18 @@ module Allen
 
       namespace :umbraco do
         task :install do
-          packages = Nokogiri::XML(File.read('./src/<%= @name %>.Umbraco/packages.config'))
+          packages = Nokogiri::XML(File.read("#{settings.webroot}/packages.config"))
           umbraco  = packages.xpath("//package[@id='UmbracoCms']")
 
           package_name    = umbraco.xpath('@id').text
           package_version = umbraco.xpath('@version').text
+          package_path    = "#{src_dir}/packages/#{package_name}.#{package_version}/UmbracoFiles"
 
-          path = "./src/packages/#{package_name}.#{package_version}/UmbracoFiles"
-
-          umbraco_dir        = File.join(path, 'umbraco')
-          umbraco_client_dir = File.join(path, 'umbraco_client')
-          install_dir        = File.join(path, 'install')
-
-          cp_r umbraco_dir,        './src/<%= @name %>.Umbraco'
-          cp_r umbraco_client_dir, './src/<%= @name %>.Umbraco'
-          cp_r install_dir,        './src/<%= @name %>.Umbraco'
+          ['umbraco', 'umbraco_client', 'install'].map do |directory|
+            File.join package_path, directory
+          end.each do |directory|
+            cp_r directory, settings.webroot
+          end
         end
       end
 
