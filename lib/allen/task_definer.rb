@@ -52,6 +52,7 @@ module Allen
         end
       end
 
+
       namespace :assets do
         desc "Watches assets for every project"
         multitask :watch => projects.map { |project| "#{project.name.downcase}:assets:watch" }
@@ -61,6 +62,27 @@ module Allen
 
         desc "Compresses assets for every project"
         task :compress => projects.map { |project| "#{project.name.downcase}:assets:compress" }
+      end
+
+
+      namespace :umbraco do
+        task :install do
+          packages = Nokogiri::XML(File.read('./src/<%= @name %>.Umbraco/packages.config'))
+          umbraco  = packages.xpath("//package[@id='UmbracoCms']")
+
+          package_name    = umbraco.xpath('@id').text
+          package_version = umbraco.xpath('@version').text
+
+          path = "./src/packages/#{package_name}.#{package_version}/UmbracoFiles"
+
+          umbraco_dir        = File.join(path, 'umbraco')
+          umbraco_client_dir = File.join(path, 'umbraco_client')
+          install_dir        = File.join(path, 'install')
+
+          cp_r umbraco_dir,        './src/<%= @name %>.Umbraco'
+          cp_r umbraco_client_dir, './src/<%= @name %>.Umbraco'
+          cp_r install_dir,        './src/<%= @name %>.Umbraco'
+        end
       end
 
       projects.each do |project|

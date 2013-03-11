@@ -18,21 +18,3 @@ end
 project "Umbraco"
 
 define_tasks
-
-task :install do
-  packages = Nokogiri::XML(File.read('./src/<%= @name %>.Umbraco/packages.config'))
-  umbraco  = packages.xpath("//package[@id='UmbracoCms']")
-
-  package_name    = umbraco.xpath('@id').text
-  package_version = umbraco.xpath('@version').text
-
-  path = "./src/packages/#{package_name}.#{package_version}/UmbracoFiles"
-
-  umbraco_dir        = File.join(path, 'umbraco')
-  umbraco_client_dir = File.join(path, 'umbraco_client')
-  install_dir        = File.join(path, 'install')
-
-  cp_r umbraco_dir,        './src/<%= @name %>.Umbraco'
-  cp_r umbraco_client_dir, './src/<%= @name %>.Umbraco'
-  cp_r install_dir,        './src/<%= @name %>.Umbraco'
-end
