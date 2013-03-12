@@ -11,8 +11,6 @@ end
 
 settings do
   client "<%= @name %>"
-  css_preprocessor :banshee
-  js_preprocessor :banshee
 end
 
 project "Umbraco"
