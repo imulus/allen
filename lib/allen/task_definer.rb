@@ -44,6 +44,7 @@ module Allen
             project.build!
           end
 
+          desc "Install dependencies for the #{project.name} project"
           task :install do
             project.install!
           end
