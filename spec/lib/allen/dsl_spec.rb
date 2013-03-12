@@ -33,5 +33,19 @@ describe Allen::DSL do
     proj1.settings.cache.should == false
     proj2.settings.compressor.should == :uglify
   end
+
+  it "assumes the project is an UmbracoProject" do
+    proj1 = project "Ralphy"
+    proj1.settings.type.should == :umbraco
+    proj1.class.should == Allen::UmbracoProject
+  end
+
+  it "can have a type other than umbraco" do
+    proj1 = project "Ralphy" do
+      type :static
+    end
+    proj1.settings.type.should == :static
+    proj1.class.should == Allen::StaticProject
+  end
 end
 

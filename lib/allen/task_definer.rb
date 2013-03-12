@@ -11,44 +11,18 @@ module Allen
     end
 
     def define_tasks
-      # Default Tasks
       task :default => :build
 
-      # Build Task
       desc "Build the solution in debug mode and compile all assets"
-      task :build => ['assets:build', 'deploy:build'] do
-        Rake.application.invoke_task('solution:msbuild["debug"]')
-      end
-
-      # Release Build
-      desc "Build the solution in release mode, compile and compress all assets"
-      task :release => ['assets:build', 'assets:compress'] do
-        Rake.application.invoke_task('solution:msbuild["release"]')
-      end
+      task :build => ['assets:build', 'solution:msbuild']
 
       namespace :solution do
         desc "Build the solution with a chosen configuration"
-        msbuild :msbuild, :config do |msb, args|
+        msbuild :msbuild do |msb|
           msb.solution   = "#{settings.solution}"
-          msb.properties = { :configuration => args.config.to_sym }
+          msb.properties = { :configuration => :release }
           msb.parameters = settings.parameters
           msb.targets    = settings.targets
-        end
-      end
-
-      namespace :deploy do
-        desc "Creates files for deployment"
-        task :build do
-          #create a version file with the time and the latest git commit
-          version_file = File.open("#{settings.webroot}/version","w")
-          version_file.puts "built: #{Time.now.to_s}"
-          version_file.puts `git log -1`
-          version_file.close
-
-          #create a commit-hash file with just the last commit hash in it
-          hash_file = File.open("#{settings.webroot}/commit-hash","w")
-          hash_file.print  `git log -1 --format="%H"`.chomp
-          hash_file.close
         end
       end
 
@@ -66,16 +40,12 @@ module Allen
       projects.each do |project|
         namespace project.name.downcase do
           desc "Build the #{project.name} project in debug mode and compile assets"
-          task :build => ['assets:build'] do
-            Rake.application.invoke_task(project.name.downcase + ':msbuild["debug"]')
+          task :build do
+            project.build!
           end
 
-          desc "Build the #{project.name} project in debug mode"
-          msbuild :msbuild, :config do |msb, args|
-            msb.solution   = "#{project.settings.src_dir}/#{project.settings.client}.#{project.name}/#{project.settings.client}.#{project.name}.csproj"
-            msb.properties = { :configuration => args.config.to_sym }
-            msb.parameters = project.settings.parameters
-            msb.targets    = project.settings.targets
+          task :install do
+            project.install!
           end
 
           namespace :assets do
@@ -91,39 +61,35 @@ module Allen
 
           namespace :css do
             desc "Builds CSS for the #{project.name} project"
-            input  = "#{project.settings.src_dir}/#{project.settings.client}.#{project.name}/#{project.settings.css_input}"
-            output = "#{project.settings.src_dir}/#{project.settings.client}.#{project.name}/#{project.settings.css_output}"
-            preprocessor = project.css_preprocessor
-
             task :build do
-              Bundler.with_clean_env { preprocessor.build(input, output) }
+              project.css.build!
             end
 
+            desc "Compresses CSS for the #{project.name} project"
             task :compress do
-              Bundler.with_clean_env { preprocessor.compress(input, output) }
+              project.css.compress!
             end
 
+            desc "Watches CSS for the #{project.name} project"
             task :watch do
-              Bundler.with_clean_env { preprocessor.watch(input, output) }
+              project.css.watch!
             end
           end
 
           namespace :js do
             desc "Builds JS for the #{project.name} project"
-            input  = "#{project.settings.src_dir}/#{project.settings.client}.#{project.name}/#{project.settings.js_input}"
-            output = "#{project.settings.src_dir}/#{project.settings.client}.#{project.name}/#{project.settings.js_output}"
-            preprocessor = project.js_preprocessor
-
             task :build do
-              Bundler.with_clean_env { preprocessor.build(input, output) }
+              project.js.build!
             end
 
+            desc "Compresses JS for the #{project.name} project"
             task :compress do
-              Bundler.with_clean_env { preprocessor.compress(input, output) }
+              project.js.compress!
             end
 
+            desc "Watches JS for the #{project.name} project"
             task :watch do
-              Bundler.with_clean_env { preprocessor.watch(input, output) }
+              project.js.watch!
             end
           end
         end
@@ -131,4 +97,3 @@ module Allen
     end
   end
 end
-

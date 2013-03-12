@@ -8,6 +8,7 @@ module Allen
 
       defaults = Proc.new do
         client           "Client"
+        type             :umbraco
         css_input        "assets/stylesheets/app/application.less"
         css_output       "css/application.css"
         css_preprocessor :banshee
