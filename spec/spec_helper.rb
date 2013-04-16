@@ -1,3 +1,5 @@
+require 'stringio'
+
 def sh(*args)
 end
 
