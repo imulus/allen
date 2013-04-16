@@ -32,8 +32,8 @@ module Allen
     def js
       @js_asset_bundle ||= begin
         preprocessor = Preprocessors.for(settings.js_preprocessor)
-        input  = "#{settings.src_dir}/#{settings.client}.#{name}/#{settings.js_input}"
-        output = "#{settings.src_dir}/#{settings.client}.#{name}/#{settings.js_output}"
+        input  = "#{settings.webroot}/#{settings.js_input}"
+        output = "#{settings.webroot}/#{settings.js_output}"
         AssetBundle.new(preprocessor, input, output)
       end
     end
@@ -41,8 +41,8 @@ module Allen
     def css
       @css_asset_bundle ||= begin
         preprocessor = Preprocessors.for(settings.css_preprocessor)
-        input  = "#{settings.src_dir}/#{settings.client}.#{name}/#{settings.css_input}"
-        output = "#{settings.src_dir}/#{settings.client}.#{name}/#{settings.css_output}"
+        input  = "#{settings.webroot}/#{settings.css_input}"
+        output = "#{settings.webroot}/#{settings.css_output}"
         AssetBundle.new(preprocessor, input, output)
       end
     end
