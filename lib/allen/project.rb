@@ -47,8 +47,6 @@ module Allen
       end
     end
 
-  private
-
     def generate_meta_data!
       #create a version file with the time and the latest git commit
       version_file = File.open("#{settings.webroot}/version","w")

@@ -2,6 +2,34 @@ require 'allen'
 require 'allen/project'
 
 describe Allen::Project do
+
+  describe "#build!" do
+    it "builds the assets and generates the meta data" do
+      project = Allen::Project.new
+      assets = stub(:assets, :build => stub)
+      project.stub(:assets).and_return(assets)
+      project.stub(:generate_meta_data!)
+      assets.should_receive(:build!)
+      project.build!
+    end
+  end
+
+  describe "#generate_meta_data!" do
+    it "writes the version and hash files" do
+      project = Allen::Project.new
+
+      version_file = stub(:version_file, :puts => stub)
+      File.should_receive(:open).with(project.settings.webroot + "/version", "w").and_return(version_file)
+      version_file.should_receive(:close)
+
+      hash_file = stub(:hash_file, :print => stub)
+      File.should_receive(:open).with(project.settings.webroot + "/commit-hash", "w").and_return(hash_file)
+      hash_file.should_receive(:close)
+
+      project.generate_meta_data!
+    end
+  end
+
   describe "settings" do
     it "has good defaults" do
       project = Allen::Project.new
