@@ -14,7 +14,7 @@ module Allen
       task :default => :build
 
       desc "Build the solution in debug mode and compile all assets"
-      task :build => ['assets:build', 'solution:msbuild']
+      task :build => ['solution:msbuild'] + projects.map { |project| "#{project.name.downcase}:build" }
 
       namespace :solution do
         desc "Build the solution with a chosen configuration"
