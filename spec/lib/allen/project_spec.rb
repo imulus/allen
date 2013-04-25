@@ -15,17 +15,11 @@ describe Allen::Project do
   end
 
   describe "#generate_meta_data!" do
-    it "writes the version and hash files" do
+    it "saves the meta data" do
       project = Allen::Project.new
-
-      version_file = stub(:version_file, :puts => stub)
-      File.should_receive(:open).with(project.settings.webroot + "/version", "w").and_return(version_file)
-      version_file.should_receive(:close)
-
-      hash_file = stub(:hash_file, :print => stub)
-      File.should_receive(:open).with(project.settings.webroot + "/commit-hash", "w").and_return(hash_file)
-      hash_file.should_receive(:close)
-
+      meta_data = stub(:meta_data, :save! => stub)
+      Allen::MetaData.should_receive(:new).with(project.settings).and_return(meta_data)
+      meta_data.should_receive(:save!)
       project.generate_meta_data!
     end
   end
