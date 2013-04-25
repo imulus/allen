@@ -25,7 +25,8 @@ describe Allen::MetaData do
                                            :date => "commit date",
                                            :author => "commit author",
                                            :message => "commit message" })
-      meta_data.to_json.should == "{\"build\":{\"date\":\"build date\"},\"commit\":{\"id\":\"commit id\",\"date\":\"commit date\",\"author\":\"commit author\",\"message\":\"commit message\"}}"
+      meta_data.stub(:allen).and_return({ :version => "allen version" })
+      meta_data.to_json.should == "{\"build\":{\"date\":\"build date\"},\"commit\":{\"id\":\"commit id\",\"date\":\"commit date\",\"author\":\"commit author\",\"message\":\"commit message\"},\"allen\":{\"version\":\"allen version\"}}"
     end
   end
 

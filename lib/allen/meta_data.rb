@@ -17,7 +17,8 @@ module Allen
 
     def to_json
       { :build => build,
-        :commit => commit }.to_json
+        :commit => commit,
+        :allen => allen }.to_json
     end
 
     def build
@@ -32,6 +33,10 @@ module Allen
         :date => commit.committed_date,
         :author => commit.author,
         :message => commit.message }
+    end
+
+    def allen
+      { :version => Allen::VERSION }
     end
 
     class NullCommit
