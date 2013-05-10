@@ -53,8 +53,7 @@ src/[Pp]ackages/
 .hg
 .hgignore
 
-version
-commit-hash
+src/*.*/meta.json
 dummy.txt
 
 src/*.Umbraco/App_Data/ClientDependency/

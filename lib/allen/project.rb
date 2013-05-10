@@ -1,6 +1,7 @@
 require 'allen/settings'
 require 'allen/preprocessors'
 require 'allen/asset_bundle'
+require 'allen/meta_data'
 
 module Allen
   class Project
@@ -48,16 +49,7 @@ module Allen
     end
 
     def generate_meta_data!
-      #create a version file with the time and the latest git commit
-      version_file = File.open("#{settings.webroot}/version","w")
-      version_file.puts "built: #{Time.now.to_s}"
-      version_file.puts `git log -1`
-      version_file.close
-
-      #create a commit-hash file with just the last commit hash in it
-      hash_file = File.open("#{settings.webroot}/commit-hash","w")
-      hash_file.print  `git log -1 --format="%H"`.chomp
-      hash_file.close
+      MetaData.new(settings).save!
     end
 
   end
