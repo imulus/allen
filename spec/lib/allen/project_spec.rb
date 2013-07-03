@@ -70,6 +70,12 @@ describe Allen::Project do
       project.css.preprocessor.should == Allen::Preprocessors::Banshee
     end
 
+    it "can set the css preprocessor to false" do
+      project = Allen::Project.new
+      project.settings.css_preprocessor false
+      project.css.preprocessor.should == Allen::Preprocessors::Null
+    end
+
     it "raises when it doesn't know the css preprocessor" do
       project = Allen::Project.new
       project.settings.css_preprocessor :pawikwkasdf
@@ -88,6 +94,12 @@ describe Allen::Project do
       project = Allen::Project.new
       project.settings.js_preprocessor :banshee
       project.js.preprocessor.should == Allen::Preprocessors::Banshee
+    end
+
+    it "can set the js preprocessor to false" do
+      project = Allen::Project.new
+      project.settings.js_preprocessor false
+      project.js.preprocessor.should == Allen::Preprocessors::Null
     end
 
     it "raises when it doesn't know the js preprocessor" do
