@@ -22,6 +22,7 @@ Or install it yourself as:
 
 ### CLI
 
+    $ allen new [project]
 TODO: Write CLI usage instructions here
 
 ### Rake
