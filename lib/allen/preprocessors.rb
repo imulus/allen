@@ -62,9 +62,9 @@ module Allen
     end
 
     class Null < Preprocessor
-      def self.build; end
-      def self.compress; end
-      def self.watch; end
+      def self.build(*args); self; end
+      def self.compress(*args); self; end
+      def self.watch(*args); self; end
     end
   end
 end

@@ -81,5 +81,23 @@ describe Allen::Preprocessors do
       sass.watch(input, output)
     end
   end
+
+  describe Allen::Preprocessors::Null do
+    let(:null) { Allen::Preprocessors::Null }
+    let(:input) { "c:/path/to/some/input/file.css" }
+    let(:output) { "c:/path/to/some/output/file.css" }
+
+    it "has a build command that does nothing" do
+      null.build(input, output).should eq null
+    end
+
+    it "has a compress command that does nothing" do
+      null.compress(input, output).should eq null
+    end
+
+    it "has a watch command that does nothing" do
+      null.watch(input, output).should eq null
+    end
+  end
 end
 
