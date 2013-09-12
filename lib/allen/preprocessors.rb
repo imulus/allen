@@ -2,6 +2,7 @@ module Allen
   module Preprocessors
 
     def self.for(name)
+      name ||= "null"
       begin
         const_get(name.capitalize)
       rescue
@@ -58,6 +59,12 @@ module Allen
         output_path = relative(output).gsub(/\/\w+\.\w+$/,'')
         sh "sass --watch #{input_path}:#{output_path} --style expanded"
       end
+    end
+
+    class Null < Preprocessor
+      def self.build; end
+      def self.compress; end
+      def self.watch; end
     end
   end
 end
