@@ -18,7 +18,8 @@ Gem::Specification.new do |gem|
   gem.add_runtime_dependency(%q<thor>, ["~> 0.16.0"])
   gem.add_runtime_dependency(%q<i18n>, ["~> 0.6.1"])
   gem.add_runtime_dependency(%q<active_support>, ["~> 3.0.0"])
-  gem.add_runtime_dependency(%q<albacore>, ["0.3.4"])
+  gem.add_runtime_dependency(%q<albacore>, ["0.3.5"])
+  gem.add_runtime_dependency(%q<rubyzip>, ["~> 0.9.0"])
   gem.add_runtime_dependency(%q<rake>, ["0.9.2.2"])
   gem.add_runtime_dependency(%q<grit>, ["2.5.0"])
 
