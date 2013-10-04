@@ -62,11 +62,14 @@ src/*.Umbraco/App_Data/Logs/
 src/*.Umbraco/App_Data/TEMP/
 src/*.Umbraco/App_Data/preview/
 src/*.Umbraco/App_Data/umbraco.config
+src/*.Umbraco/App_Data/umbraco.licensing.log.txt
 src/*.Umbraco/aspnet_client/
 src/*.Umbraco/media/
 src/*.Umbraco/imagecache/
 src/*.Umbraco/install/
-src/*.Umbraco/umbraco/
+src/*.Umbraco/umbraco/*
+!src/*.Umbraco/umbraco/Plugins
+!src/*.Umbraco/umbraco/Images
 src/*.Umbraco/umbraco_client/
 
 *[Rr]e[Ss]harper.user
