@@ -1,0 +1,96 @@
+module.exports = function (grunt) {
+  require('load-grunt-tasks')(grunt);
+
+  grunt.initConfig({
+    pkg: grunt.file.readJSON('package.json'),
+    src: 'src/<%= pkg.name %>.Umbraco',
+
+    assets: {
+      css: {
+        src:  '<%= src %>/assets/stylesheets',
+        dest: '<%= src %>/css',
+      },
+
+      js: {
+        src:  '<%= src %>/assets/javascripts',
+        dest: '<%= src %>/js'
+      }
+    },
+
+    watch: {
+      options: {
+        spawn: false,
+        atBegin: true
+      },
+
+      less: {
+        files: '<%= assets.css.src %>/**/*.less',
+        tasks: 'less:build'
+      },
+
+      js: {
+        files: '<%= javascripts %>/**/*.js',
+        tasks: 'concat'
+      }
+
+    },
+
+    less: {
+      build: {
+        options: {
+          paths: ['<%= assets.css.src %>/app', '<%= assets.css.src %>/lib', '<%= assets.css.src %>/vendor']
+        },
+        files: {
+          '<%= assets.css.dest %>/application.css': '<%= assets.css.src %>/app/application.less'
+        }
+      },
+
+      compress: {
+        options: {
+          cleancss: true,
+          report: 'min'
+        },
+        files: {
+          '<%= assets.css.dest %>/application.min.css': '<%= assets.css.dest %>/application.css'
+        }
+      }
+    },
+
+    concat: {
+      application: {
+        nonull: true,
+        src: ['<%= assets.js.src %>/app/application.js'],
+        dest: '<%= assets.js.dest %>/application.js'
+      }
+    },
+
+    uglify: {
+      options: {
+        report: 'min'
+      },
+
+      application: {
+        src:  '<%= assets.js.dest %>/application.js',
+        dest: '<%= assets.js.dest %>/application.min.js'
+      }
+    },
+
+    msbuild: {
+      dev: {
+        src: ['<%= src %>/<%= pkg.name%>.Umbraco.csproj'],
+        options: {
+          projectConfiguration: 'Debug',
+          targets: ['Clean', 'Rebuild'],
+          stdout: true,
+          buildParameters: {
+            WarningLevel: 2
+          },
+          verbosity: 'quiet'
+        }
+      }
+    }
+  });
+
+  grunt.registerTask('build', ['msbuild', 'less', 'concat', 'uglify']);
+  grunt.registerTask('default', 'build');
+}
