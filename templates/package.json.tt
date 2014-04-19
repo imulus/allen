@@ -1,0 +1,20 @@
+{
+  "name": "<%= @name %>",
+  "version": "0.0.0",
+  "author": "Imulus, LLC",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/imulus/<%= @name %>.git"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.4",
+    "grunt-cli": "~0.1.13",
+    "grunt-contrib-concat": "~0.4.0",
+    "grunt-contrib-less": "~0.11.0",
+    "grunt-contrib-uglify": "~0.4.0",
+    "grunt-contrib-watch": "~0.6.1",
+    "load-grunt-tasks": "~0.4.0",
+    "grunt-msbuild": "~0.1.11"
+  }
+}

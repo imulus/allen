@@ -53,7 +53,6 @@ src/[Pp]ackages/
 .hg
 .hgignore
 
-src/*.*/meta.json
 dummy.txt
 
 src/*.Umbraco/App_Data/ClientDependency/
@@ -71,6 +70,9 @@ src/*.Umbraco/umbraco/*
 !src/*.Umbraco/umbraco/Plugins
 !src/*.Umbraco/umbraco/Images
 src/*.Umbraco/umbraco_client/
+
+src/*.Umbraco/css/**/application.*
+src/*.Umbraco/js/**/application.*
 
 *[Rr]e[Ss]harper.user
 _ReSharper.*/
